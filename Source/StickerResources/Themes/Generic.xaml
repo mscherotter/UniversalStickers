@@ -121,6 +121,7 @@
                             
                             <HyperlinkButton Grid.Row="2" x:Uid="DownloadStickersButton" 
                                              FontSize="12"
+                                             NavigateUri="https://github.com/mscherotter/UniversalStickers/blob/master/StickerApps.md"
                                              Content="Download and install apps that have stickers."/>
                         </Grid>
                     </Border>
