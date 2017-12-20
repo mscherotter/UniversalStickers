@@ -19,18 +19,7 @@ This is a Visual Studio 2017 project template that creates an app to host sticke
 # Sticker Host Test Project
 [Sticker Host](Source/StickerHost) is a test project that shows the sticker collections on the user's system.  It uses the [StickersControl](Source/StickerResources/StickersControl.cs) in the [StickerResources](Source/StickerResources) project.
 ## Enabling Sticker Hosting in your app
-To make your app a sticker host, edit the application manifest
-1. Add this namespace declaration xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" to the *Package* element at top of the file
-2. Add uap3 to the IgnorableNamespaces="uap mp *uap3*" attribute in the *Package* element
-3. Add a *aup3:Extension* element to the *Extensions* section like this below:
-
-    <Extensions>
-        <uap3:Extension Category="windows.appExtensionHost">
-          <uap3:AppExtensionHost>
-            <uap3:Name>Universal.Stickers.1</uap3:Name>
-          </uap3:AppExtensionHost>
-        </uap3:Extension>
-    </Extensions>
+To make your app a sticker host, in the decalarations section of the app manifest editor, Add an *App Extension Host* declaration and put *Universal.Stickers.1* in the Name field.
 
 # StickerResources Project
 [StickerResources](Source/StickerResources) is a Visual Studio 2017 project that hosts a StickersControl custom control that can be used in apps to pick stickers.
