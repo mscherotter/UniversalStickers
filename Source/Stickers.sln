@@ -1,0 +1,107 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StickersApp", "Stickers\StickersApp.csproj", "{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StickerHost", "StickerHost\StickerHost.csproj", "{D6176840-7F08-46D2-934C-92784A4811C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StickerResources", "StickerResources\StickerResources.csproj", "{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{55D98DA2-F42D-4B7B-95DB-683CB1EB4737}"
+	ProjectSection(SolutionItems) = preProject
+		Stickers.Nuget\stickers.nuspec = Stickers.Nuget\stickers.nuspec
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Debug|ARM.ActiveCfg = Debug|ARM
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Debug|ARM.Build.0 = Debug|ARM
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Debug|ARM.Deploy.0 = Debug|ARM
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Debug|x64.ActiveCfg = Debug|x64
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Debug|x64.Build.0 = Debug|x64
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Debug|x64.Deploy.0 = Debug|x64
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Debug|x86.ActiveCfg = Debug|x86
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Debug|x86.Build.0 = Debug|x86
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Debug|x86.Deploy.0 = Debug|x86
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Release|Any CPU.ActiveCfg = Release|x86
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Release|ARM.ActiveCfg = Release|ARM
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Release|ARM.Build.0 = Release|ARM
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Release|ARM.Deploy.0 = Release|ARM
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Release|x64.ActiveCfg = Release|x64
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Release|x64.Build.0 = Release|x64
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Release|x64.Deploy.0 = Release|x64
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Release|x86.ActiveCfg = Release|x86
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Release|x86.Build.0 = Release|x86
+		{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}.Release|x86.Deploy.0 = Release|x86
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Debug|ARM.ActiveCfg = Debug|ARM
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Debug|ARM.Build.0 = Debug|ARM
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Debug|ARM.Deploy.0 = Debug|ARM
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Debug|x64.ActiveCfg = Debug|x64
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Debug|x64.Build.0 = Debug|x64
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Debug|x64.Deploy.0 = Debug|x64
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Debug|x86.ActiveCfg = Debug|x86
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Debug|x86.Build.0 = Debug|x86
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Debug|x86.Deploy.0 = Debug|x86
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Release|Any CPU.ActiveCfg = Release|x86
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Release|ARM.ActiveCfg = Release|ARM
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Release|ARM.Build.0 = Release|ARM
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Release|ARM.Deploy.0 = Release|ARM
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Release|x64.ActiveCfg = Release|x64
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Release|x64.Build.0 = Release|x64
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Release|x64.Deploy.0 = Release|x64
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Release|x86.ActiveCfg = Release|x86
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Release|x86.Build.0 = Release|x86
+		{D6176840-7F08-46D2-934C-92784A4811C6}.Release|x86.Deploy.0 = Release|x86
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Debug|ARM.ActiveCfg = Debug|ARM
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Debug|ARM.Build.0 = Debug|ARM
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Debug|x64.ActiveCfg = Debug|x64
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Debug|x64.Build.0 = Debug|x64
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Debug|x86.ActiveCfg = Debug|x86
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Debug|x86.Build.0 = Debug|x86
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Release|ARM.ActiveCfg = Release|ARM
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Release|ARM.Build.0 = Release|ARM
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Release|x64.ActiveCfg = Release|x64
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Release|x64.Build.0 = Release|x64
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Release|x86.ActiveCfg = Release|x86
+		{54BCDC8A-4B68-4CD8-B39F-8E53E11F4AE9}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EC0CC06A-CAC5-47B2-829F-9AA1CE38E7C3}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://cme.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = StickerHost\\StickerHost.csproj
+		SccProjectName1 = StickerHost
+		SccLocalPath1 = StickerHost
+		SccProjectUniqueName2 = StickerResources\\StickerResources.csproj
+		SccProjectName2 = StickerResources
+		SccLocalPath2 = StickerResources
+		SccProjectUniqueName3 = Stickers\\StickersApp.csproj
+		SccProjectName3 = Stickers
+		SccLocalPath3 = Stickers
+	EndGlobalSection
+EndGlobal

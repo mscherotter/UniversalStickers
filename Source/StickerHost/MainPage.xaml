@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="StickerHost.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sr="using:StickerResources"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="12">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <sr:StickersControl StickerSelected="OnStickerSelected" x:Name="Stickers"/>
+        <StackPanel Grid.Row="1" Margin="4">
+        <TextBlock x:Name="Status" />
+            <TextBlock>
+                <Run Text="Tags:"/>
+                <Run Text="{Binding ElementName=Stickers, Path=SelectedSticker.Keywords.Count}"/>
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</Page>

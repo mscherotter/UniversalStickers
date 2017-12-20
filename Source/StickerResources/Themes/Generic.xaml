@@ -1,0 +1,132 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:core="using:StickerResources.Core"
+    xmlns:local="using:StickerResources">
+    <core:LaunchUriCommand x:Key="LaunchUriCommand"/>
+    <core:FormatStringConverter x:Key="FormatStringConverter"/>
+    <Style TargetType="local:StickersControl" >
+        <Setter Property="SelectorStyle">
+            <Setter.Value>
+                <Style TargetType="GridView">
+                    <Setter Property="AutomationProperties.Name" Value="Stickers"/>
+                    <Setter Property="ScrollViewer.IsHorizontalScrollChainingEnabled" Value="False"/>
+                    <Setter Property="animations:ReorderGridAnimation.Duration" Value="300"/>
+                    <Setter Property="ItemTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <Image Source="{Binding Thumbnail}" Width="100" Height="100" Stretch="Uniform"
+                                       AutomationProperties.Name="{Binding Name}"
+                                       ToolTipService.ToolTip="{Binding Name}"/>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:StickersControl">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Border.Resources>
+                            <CollectionViewSource x:Name="StickerExtensionSource" IsSourceGrouped="True"
+                                                  ItemsPath="Stickers"/>
+                            <DataTemplate x:Key="StickerExtensionTemplate">
+                                <Grid>
+                                    <Grid.ContextFlyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem Text="{Binding Author, Converter={StaticResource FormatStringConverter}, ConverterParameter=AboutFormat}" Command="{StaticResource LaunchUriCommand}" CommandParameter="{Binding AuthorLink}"/>
+                                            <MenuFlyoutItem Text="{Binding License}" Command="{StaticResource LaunchUriCommand}" CommandParameter="{Binding LicenseUri}"/> 
+                                            <MenuFlyoutItem x:Uid="RateAndReviewItem" Text="Rate &amp; Review" Command="{StaticResource LaunchUriCommand}" CommandParameter="{Binding RatingUri}"/>
+                                        </MenuFlyout>
+                                    </Grid.ContextFlyout>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock TextTrimming="WordEllipsis" Text="{Binding Name}" TextWrapping="NoWrap"/>
+                                        <TextBlock Style="{StaticResource CaptionTextBlockStyle}">
+                                            <Run Text="{Binding Author, Converter={StaticResource FormatStringConverter}, ConverterParameter=ByFormat}"/>
+                                            <LineBreak/>
+                                            <Run Text="{Binding Description}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                            <Style TargetType="GridViewHeaderItem" x:Key="ExtensionHeaderItemStyle">
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+
+                        </Border.Resources>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="StatusStates">
+                                <VisualState x:Name="Default">
+                                </VisualState>
+                                <VisualState x:Name="Busy">
+                                    <VisualState.Setters>
+                                        <Setter Target="ProgressRing.(ProgressRing.IsActive)" Value="True"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="NoStickers">
+                                    <VisualState.Setters>
+                                        <Setter Target="NoCollectionsText.(UIElement.Visibility)" Value="Visible"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ComboBox Visibility="Collapsed" AutomationProperties.Name="Tag selector" MinWidth="200" VerticalAlignment="Top" HorizontalAlignment="Right" x:Name="TagsComboBox" Margin="4"/>
+                            <SemanticZoom Grid.Row="1">
+                                <SemanticZoom.ZoomedInView>
+                                    <GridView x:Name="Selector" 
+                                        Style="{TemplateBinding SelectorStyle}"
+                                        ItemsSource="{Binding Source={StaticResource StickerExtensionSource}}">
+                                        <GridView.GroupStyle>
+                                            <GroupStyle   
+                                                HeaderContainerStyle="{StaticResource ExtensionHeaderItemStyle}"
+                                                HeaderTemplate="{StaticResource StickerExtensionTemplate}">
+                                            </GroupStyle>
+                                        </GridView.GroupStyle>
+                                    </GridView>
+                                </SemanticZoom.ZoomedInView>
+                                <SemanticZoom.ZoomedOutView>
+                                    <ListView x:Name="ZoomedOutList" DisplayMemberPath="Group.Name" 
+                                              ItemsSource="{Binding CollectionGroups, Source={StaticResource StickerExtensionSource}}"
+                                              SelectionMode="None"
+                                              AutomationProperties.Name="Sticker collections"
+                                              ScrollViewer.IsHorizontalScrollChainingEnabled="False">
+                                        
+                                    </ListView>
+                                </SemanticZoom.ZoomedOutView>
+                            </SemanticZoom>
+                            <ProgressRing Grid.Row="1" x:Name="ProgressRing" IsActive="False"/>
+                            <TextBlock x:Name="NoCollectionsText" Grid.Row="1" 
+                                       x:Uid="NoStickersInstalledText"
+                                       Visibility="Collapsed" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" 
+                                       Text="There are no sticker extension apps installed." 
+                                       TextWrapping="Wrap"/>
+                            
+                            <HyperlinkButton Grid.Row="2" x:Uid="DownloadStickersButton" 
+                                             FontSize="12"
+                                             Content="Download and install apps that have stickers."/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
+

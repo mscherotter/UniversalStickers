@@ -1,0 +1,26 @@
+﻿<Page
+    x:Class="StickersApp.Pages.FileOpenPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <CollectionViewSource x:Name="ExtensionsViewSource" IsSourceGrouped="true" ItemsPath="Stickers"></CollectionViewSource>
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <GridView ItemsSource="{Binding Source={StaticResource ExtensionsViewSource}}" 
+                  ItemTemplate="{StaticResource ImageTemplate}"
+                  animations:ReorderGridAnimation.Duration="300"
+                  AutomationProperties.Name="Stickers"
+                  x:Name="FileGridView"
+                  SelectionChanged="OnSelectionChanged">
+            <GridView.GroupStyle>
+                <GroupStyle HeaderTemplate="{StaticResource ExtensionTemplate}" 
+                            HeaderContainerStyle="{StaticResource ExtensionHeaderItemStyle}">
+                </GroupStyle>
+            </GridView.GroupStyle>
+        </GridView>
+    </Grid>
+</Page>
