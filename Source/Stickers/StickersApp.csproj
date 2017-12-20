@@ -131,9 +131,8 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="ReadMe.txt" />
     <Content Include="Shared\Charm %28replace this%29.png" />
-    <Content Include="Shared\DSCF3726.JPG" />
-    <Content Include="Shared\MRV_20171114_22_01_24.jpg" />
-    <Content Include="Shared\WIN_20171204_12_27_15_Pro.jpg" />
+    <Content Include="Shared\Dung Beetle.png" />
+    <Content Include="Shared\Logo.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

@@ -18,6 +18,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
 		..\StickerApps.md = ..\StickerApps.md
+		..\Stickers UWP App.zip = ..\Stickers UWP App.zip
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{6A764ED7-8C58-48FF-B9BF-B38C10EB1FDC}"
+	ProjectSection(SolutionItems) = preProject
+		..\Assets\__PreviewImage.jpg = ..\Assets\__PreviewImage.jpg
 	EndProjectSection
 EndProject
 Global
