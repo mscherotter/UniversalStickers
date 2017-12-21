@@ -1,5 +1,5 @@
 # UniversalStickers
-A way for Windows apps to provide collections stickers and clip art to other apps.
+A way for Windows apps to provide collections stickers and clip art to other apps.  Any UWP App with a minimum version set to the Windows Anniversary Update (10.0.14393.0) can be a sticker app or a sticker host.
 
 # Visual Studio Template
 This is a Visual Studio 2017 project template that creates an app to host stickers.  This template is based on the [Stickers](Source/Stickers) project. This app alone has minimal functionality but when used in conjuction with other apps it can provide collections of stickers to the other apps in a number of ways:

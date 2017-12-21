@@ -8,4 +8,4 @@ These application host the *Universal.Sticker.1* app extension and will be able 
 * Your sticker host app here
 
 # Contributing
-Please make a pull request to add any Sticker apps or Sticker Hosts to the lists.
+Please make a pull request to add any Sticker apps or Sticker Hosts to the lists.  Any UWP App with a minimum version set to the Windows Anniversary Update (10.0.14393.0) can be a sticker app or a sticker host.
