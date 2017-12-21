@@ -15,10 +15,12 @@ This is a Visual Studio 2017 project template that creates an app to host sticke
 3. Move the *Stickers UWP App.zip* file to the %UserProfile%\Documents\Visual Studio 2017\Templates\ProjectTemplates\Visual C# folder on your system.
 4. Now in Visual Studio, select File...New...Project... and you should see the *Stickers UWP App* project type in the Visual C# folder.
 5. Follow the instructions in the ReadMe.txt file to add your collections and prepare the app for publishing to the Windows Store.
+
 ![Sticker UWP App Template](Assets/__PreviewImage.jpg)
 
 # Sticker Host Test Project
 [Sticker Host](Source/StickerHost) is a test project that shows the sticker collections on the user's system.  It uses the [StickersControl](Source/StickerResources/StickersControl.cs) in the [StickerResources](Source/StickerResources) project.
+
 ![Sticker Host Test App](Assets/StickerHost.png)
 
 ## Enabling Sticker Hosting in your app
