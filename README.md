@@ -3,11 +3,11 @@ A way for Windows apps to provide collections stickers and clip art to other app
 
 # Visual Studio Template
 This is a Visual Studio 2017 project template that creates an app to provide stickers to other apps.  This template is based on the [Stickers](Source/Stickers) project. This app alone has minimal functionality but when used in conjuction with other apps it can provide collections of stickers to the other apps in a number of ways:
-1. You can drag and drop the stickers from this app to other apps that accecpt picture files or bitmaps
-2. You can copy any of the stickers from this app to the clipboard to paste into other apps
-3. You can share a sticker from this app to other UWP apps that accept picture files or bitmaps
+1. You can drag and drop the stickers from this app to other apps that accecpt picture files or bitmaps.
+2. You can copy any of the stickers from this app to the clipboard to paste into other apps.
+3. You can share a sticker from this app to other UWP apps that accept picture files or bitmaps.
 4. You can use the file picker in other UWP apps to select this app as a source for sticker files.
-5. UWP Apps that declare that they are Sticker Hosts can directly access sticker collections in this app by declaring in their manifest that they host the *Universal.Sticker.1* extension.
+5. UWP Apps that declare that they are Sticker Hosts can directly access sticker collections in this app by declaring in their manifest that they host the *Universal.Sticker.1* app extension.
 
 ## Installing the Template
 1. Install [Microsoft Visual Studio 2017](https://www.visualstudio.com/downloads/) (Community, Professional, or Enterprise editions)
