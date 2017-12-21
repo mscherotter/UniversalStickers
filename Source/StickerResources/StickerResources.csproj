@@ -115,6 +115,7 @@
     <Compile Include="Core\LaunchUriCommand.cs" />
     <Compile Include="Core\Sticker.cs" />
     <Compile Include="Core\StickerExtension.cs" />
+    <Compile Include="IStickersControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StickersControl.cs" />
     <Compile Include="StickerSelectedEventArgs.cs" />

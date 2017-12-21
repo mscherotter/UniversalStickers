@@ -18,15 +18,15 @@ namespace StickerResources
     /// <summary>
     ///     Sticker selector control
     /// </summary>
-    [TemplatePart(Name = "Selector",               Type = typeof(GridView))]
-    [TemplatePart(Name = "TagsComboBox",           Type = typeof(ComboBox))]
+    [TemplatePart(Name = "Selector", Type = typeof(GridView))]
+    [TemplatePart(Name = "TagsComboBox", Type = typeof(ComboBox))]
     [TemplatePart(Name = "StickerExtensionSource", Type = typeof(CollectionViewSource))]
-    [TemplatePart(Name = "ProgressRing",           Type = typeof(ProgressRing))]
-    [TemplatePart(Name = "NoCollectionsText",      Type = typeof(TextBlock))]
+    [TemplatePart(Name = "ProgressRing", Type = typeof(ProgressRing))]
+    [TemplatePart(Name = "NoCollectionsText", Type = typeof(TextBlock))]
     [TemplateVisualState(GroupName = "StatusStates", Name = "Default")]
     [TemplateVisualState(GroupName = "StatusStates", Name = "Busy")]
     [TemplateVisualState(GroupName = "StatusStates", Name = "NoCollections")]
-    public sealed class StickersControl : Control
+    public sealed class StickersControl : Control, IStickersControl
     {
         private readonly ObservableCollection<StickerExtension> _filteredExtensions =
             new ObservableCollection<StickerExtension>();
@@ -60,13 +60,6 @@ namespace StickerResources
             typeof(StickersControl),
             new PropertyMetadata("Universal.Stickers.1", OnContractNameChanged));
 
-
-        public Sticker SelectedSticker
-        {
-            get => (Sticker) GetValue(SelectedStickerProperty);
-            set => SetValue(SelectedStickerProperty, value);
-        }
-
         public static DependencyProperty SelectedStickerProperty { get; } =
             DependencyProperty.Register("SelectedSticker", typeof(Sticker), typeof(StickersControl),
                 new PropertyMetadata(null, OnSelectedStickerChanged));
@@ -79,6 +72,13 @@ namespace StickerResources
 
         public static DependencyProperty SelectorStyleProperty { get; } = DependencyProperty.Register("SelectorStyle",
             typeof(Style), typeof(StickersControl), new PropertyMetadata(null));
+
+
+        public Sticker SelectedSticker
+        {
+            get => (Sticker) GetValue(SelectedStickerProperty);
+            set => SetValue(SelectedStickerProperty, value);
+        }
 
         public event EventHandler<StickerSelectedEventArgs> StickerSelected;
 
@@ -202,20 +202,14 @@ namespace StickerResources
                         extension.AuthorLink = new Uri(propertySet["#text"].ToString());
 
                 if (properties.TryGetValue("License", out object license))
-                {
                     if (license is PropertySet propertySet)
                     {
                         if (propertySet.TryGetValue("#text", out object licenseText))
-                        {
                             extension.License = licenseText.ToString();
-                        }
 
                         if (propertySet.TryGetValue("@Uri", out object licenseUri))
-                        {
                             extension.LicenseUri = new Uri(licenseUri.ToString());
-                        }
                     }
-                }
 
                 var folder = await extension.Extension.GetPublicFolderAsync();
 
@@ -301,21 +295,16 @@ namespace StickerResources
             }
 
             var stateName = "Default";
-            
+
             if (_filteredExtensions.Sum(extension => extension.Stickers.Count) == 0)
-            {
                 stateName = "NoStickers";
-            }
 
             VisualStateManager.GoToState(this, stateName, true);
         }
 
         private async void _catalog_PackageUpdated(AppExtensionCatalog sender, AppExtensionPackageUpdatedEventArgs args)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async delegate
-            {
-                await LoadStickersAsync();
-            });
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async delegate { await LoadStickersAsync(); });
         }
 
         private async void _catalog_PackageUninstalling(AppExtensionCatalog sender,
