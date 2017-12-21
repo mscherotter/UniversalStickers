@@ -28,7 +28,7 @@ To make your app a sticker host, in the decalarations section of the app manifes
 
 # StickerResources Project
 [StickerResources](Source/StickerResources) is a Visual Studio 2017 project that hosts a StickersControl custom control that can be used in apps to pick stickers.
-The Journalist app hosting the StickersControl.
+## The Journalist app hosting the StickersControl.
 
 ![Journalist with the StickersControl](Assets/Journalist.png)
 # Sticker Apps And Sticker Hosts
