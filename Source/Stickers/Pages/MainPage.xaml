@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     mc:Ignorable="d">
     <Page.Resources>
         <CollectionViewSource x:Name="FilesSource" IsSourceGrouped="True" ItemsPath="Stickers"/>
@@ -17,12 +16,15 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Uid="CopyButton" Icon="Copy" IsEnabled="False" Label="Copy" x:Name="CopyButton" Click="OnCopy"/>
-            <AppBarButton x:Uid="ShareButton" Icon="Share" IsEnabled="false" Label="Share" x:Name="ShareButton" Click="OnShare"/>
+            <AppBarButton x:Uid="ShareButton" IsEnabled="false" Label="Share" x:Name="ShareButton" Click="OnShare">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE72D;"></FontIcon>
+                </AppBarButton.Icon>
+            </AppBarButton>
         </CommandBar>
     </Page.BottomAppBar>
     <Grid Padding="12,12,0,0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <GridView DragItemsStarting="OnDragItemsStarting" x:Name="StickerGridView" 
-                  animations:ReorderGridAnimation.Duration="300"
                   ItemsSource="{Binding Source={StaticResource FilesSource}}" 
                   SelectionChanged="OnSelectionChanged">
             <GridView.GroupStyle>

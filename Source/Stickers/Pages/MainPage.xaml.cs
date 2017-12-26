@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Foundation.Metadata;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using StickersApp.Common;
 using StickersApp.Core;
 
@@ -28,6 +30,16 @@ namespace StickersApp.Pages
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += _navigationHelper_LoadState;
             _navigationHelper.SaveState += _navigationHelper_SaveState;
+
+            if (ApiInformation.IsEnumNamedValuePresent("Windows.UI.Xaml.Controls.Symbol", "Share"))
+            {
+                ShareButton.Icon = new SymbolIcon(Symbol.Share);
+            }
+
+            if (ReorderGridAnimation.IsSupported)
+            {
+                ReorderGridAnimation.SetDuration(StickerGridView, 300);
+            }
         }
 
         private void _navigationHelper_SaveState(object sender, SaveStateEventArgs e)
