@@ -40,6 +40,11 @@ namespace StickersApp.Pages
             {
                 ReorderGridAnimation.SetDuration(StickerGridView, 300);
             }
+
+            if (!DataTransferManager.IsSupported() || Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox")
+            {
+                ShareButton.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void _navigationHelper_SaveState(object sender, SaveStateEventArgs e)
