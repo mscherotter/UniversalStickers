@@ -31,6 +31,7 @@ namespace StickersApp.Pages
             _navigationHelper.LoadState += _navigationHelper_LoadState;
             _navigationHelper.SaveState += _navigationHelper_SaveState;
 
+            // ReSharper disable once UseNameofExpression
             if (ApiInformation.IsEnumNamedValuePresent("Windows.UI.Xaml.Controls.Symbol", "Share"))
             {
                 ShareButton.Icon = new SymbolIcon(Symbol.Share);
