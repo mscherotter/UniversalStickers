@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation.Metadata;
+using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.System.Profile;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -33,39 +36,13 @@ namespace StickersApp.Pages
 
             // ReSharper disable once UseNameofExpression
             if (ApiInformation.IsEnumNamedValuePresent("Windows.UI.Xaml.Controls.Symbol", "Share"))
-            {
                 ShareButton.Icon = new SymbolIcon(Symbol.Share);
-            }
 
             if (ReorderGridAnimation.IsSupported)
-            {
                 ReorderGridAnimation.SetDuration(StickerGridView, 300);
-            }
 
-            if (!DataTransferManager.IsSupported() || Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox")
-            {
+            if (!DataTransferManager.IsSupported() || AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox")
                 ShareButton.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void _navigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-            e.PageState["SelectedIndex"] = StickerGridView.SelectedIndex;
-        }
-
-        private void _navigationHelper_LoadState(object sender, LoadStateEventArgs e)
-        {
-            if (e.PageState != null)
-            {
-                var index = (int) e.PageState["SelectedIndex"];
-
-                StickerGridView.SelectedIndex = index;
-
-                var selectedItem = StickerGridView.SelectedItem;
-
-                if (selectedItem != null)
-                    StickerGridView.ScrollIntoView(selectedItem);
-            }
         }
 
         #region Methods
@@ -104,6 +81,26 @@ namespace StickersApp.Pages
 
         #region Implementation
 
+        private void _navigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            e.PageState["SelectedIndex"] = StickerGridView.SelectedIndex;
+        }
+
+        private void _navigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            if (e.PageState != null)
+            {
+                var index = (int) e.PageState["SelectedIndex"];
+
+                StickerGridView.SelectedIndex = index;
+
+                var selectedItem = StickerGridView.SelectedItem;
+
+                if (selectedItem != null)
+                    StickerGridView.ScrollIntoView(selectedItem);
+            }
+        }
+
         private async void MainPage_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             if (StickerGridView.SelectedItem is Sticker sticker)
@@ -138,7 +135,12 @@ namespace StickersApp.Pages
 
         private async Task UpdateDataPackageAsync(DataPackage dataPackage, Sticker sticker)
         {
-            dataPackage.SetStorageItems(new[] {sticker.File});
+            var list = new List<IStorageItem>
+            {
+                sticker.File
+            };
+
+            dataPackage.SetStorageItems(list);
 
             var stream = await sticker.File.OpenReadAsync();
 
