@@ -133,6 +133,7 @@
     <Content Include="Shared\Charm %28replace this%29.png" />
     <Content Include="Shared\Dung Beetle.png" />
     <Content Include="Shared\Logo.png" />
+    <Content Include="Shared\_keywords.txt" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

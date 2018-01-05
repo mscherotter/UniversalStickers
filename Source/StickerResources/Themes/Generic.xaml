@@ -90,10 +90,11 @@
                             <SemanticZoom Grid.Row="1">
                                 <SemanticZoom.ZoomedInView>
                                     <GridView x:Name="Selector" 
-                                        Style="{TemplateBinding SelectorStyle}"
+                                        Style="{TemplateBinding SelectorStyle}" 
                                         ItemsSource="{Binding Source={StaticResource StickerExtensionSource}}">
                                         <GridView.GroupStyle>
-                                            <GroupStyle   
+                                            <GroupStyle 
+                                                HidesIfEmpty="true"
                                                 HeaderContainerStyle="{StaticResource ExtensionHeaderItemStyle}"
                                                 HeaderTemplate="{StaticResource StickerExtensionTemplate}">
                                             </GroupStyle>
@@ -101,7 +102,7 @@
                                     </GridView>
                                 </SemanticZoom.ZoomedInView>
                                 <SemanticZoom.ZoomedOutView>
-                                    <ListView x:Name="ZoomedOutList" DisplayMemberPath="Group.Name" 
+                                    <ListView x:Name="ZoomedOutList" DisplayMemberPath="Group.Name"
                                               ItemsSource="{Binding CollectionGroups, Source={StaticResource StickerExtensionSource}}"
                                               SelectionMode="None"
                                               AutomationProperties.Name="Sticker collections"
@@ -121,7 +122,7 @@
                             
                             <HyperlinkButton Grid.Row="2" x:Uid="DownloadStickersButton" 
                                              FontSize="12"
-                                             NavigateUri="https://github.com/mscherotter/UniversalStickers/blob/master/StickerApps.md"
+                                             NavigateUri="ms-windows-store://assoc/?Tags=AppExtension-Universal.Stickers.1"
                                              Content="Download and install apps that have stickers."/>
                         </Grid>
                     </Border>

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.AppExtensions;
 using Windows.Foundation.Collections;
 using Windows.Foundation.Metadata;
+using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -213,15 +215,76 @@ namespace StickerResources
 
                 var folder = await extension.Extension.GetPublicFolderAsync();
 
+                var currentCulture = CultureInfo.CurrentCulture;
+
+                var format = "_keywords.lang-{0}.txt";
+
+                var filenames = new[]
+                {
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        format,
+                        currentCulture.Name),
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        format,
+                        currentCulture.TwoLetterISOLanguageName),
+                    "_keywords.txt"
+                };
+
+                IStorageItem keywordsFileItem = null;
+
+                foreach (var filename in filenames)
+                {
+                    keywordsFileItem = await folder.TryGetItemAsync(filename);
+
+                    if (keywordsFileItem != null)
+                    {
+                        break;
+                    }
+                }
+
+                var keywords = new Dictionary<string, string[]>();
+                
+                if (keywordsFileItem != null && keywordsFileItem.IsOfType(StorageItemTypes.File))
+                {
+                    var lines = await FileIO.ReadLinesAsync(keywordsFileItem as StorageFile);
+
+                    foreach (var line in lines)
+                    {
+                        var words = line.Split(',');
+
+                        if (words.Length > 1)
+                        {
+                            keywords[words[0].Trim()] = words.Skip(1).ToArray();
+                        }
+                    }
+                }
+
                 var files = await folder.GetFilesAsync();
 
                 foreach (var file in files)
                 {
-                    var sticker = await Sticker.CreateAsync(file);
+                    if (file.Name.StartsWith("_keywords.")) continue;
 
-                    sticker.Extension = extension;
+                    string[] keywordsForSticker;
 
-                    extension.Stickers.Add(sticker);
+                    if (keywords.TryGetValue(file.Name, out keywordsForSticker))
+                    {
+                        var sticker = await Sticker.CreateAsync(file, keywordsForSticker);
+
+                        sticker.Extension = extension;
+
+                        extension.Stickers.Add(sticker);
+                    }
+                    else
+                    {
+                        var sticker = await Sticker.CreateAsync(file, null);
+
+                        sticker.Extension = extension;
+
+                        extension.Stickers.Add(sticker);
+                    }
                 }
             }
             return extensions;
@@ -232,7 +295,7 @@ namespace StickerResources
             var keywords = from extension in _extensions
                 from sticker in extension.Stickers
                 from keyword in sticker.Keywords
-                select keyword;
+                select keyword.ToLower();
 
             var list = keywords.Distinct().ToList();
 

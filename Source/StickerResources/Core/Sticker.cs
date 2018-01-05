@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using Windows.Foundation;
@@ -21,7 +22,7 @@ namespace StickerResources.Core
 
         public StickerExtension Extension { get; set; }
 
-        public static IAsyncOperation<Sticker> CreateAsync(StorageFile file)
+        public static IAsyncOperation<Sticker> CreateAsync(StorageFile file, IReadOnlyList<string> keywords)
         {
             return AsyncInfo.Run(async delegate(CancellationToken token)
             {
@@ -32,7 +33,23 @@ namespace StickerResources.Core
 
                 var imageProperties = await file.Properties.GetImagePropertiesAsync();
 
-                sticker.Keywords = new List<string>(imageProperties.Keywords);
+                var keywordList = new List<string>(from item in imageProperties.Keywords
+                                                   select item.ToLower());
+
+                if (keywords != null)
+                {
+                    foreach (var keyword in keywords)
+                    {
+                        if (keywordList.Exists(key => string.Equals(key.Trim(), keyword.Trim(), StringComparison.CurrentCultureIgnoreCase)))
+                        {
+                            continue;
+                        }
+
+                        keywordList.Add(keyword.Trim().ToLower());
+                    }
+                }
+
+                sticker.Keywords = keywordList;
 
                 if (token.IsCancellationRequested) return null;
 
