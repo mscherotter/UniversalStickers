@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation.Metadata;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -53,8 +55,6 @@ namespace StickersApp.Pages
         /// <param name="e">the navigation event arguments</param>
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataTransferManager.GetForCurrentView().DataRequested += MainPage_DataRequested;
-
             base.OnNavigatedTo(e);
 
             var stickers = await StickerDataSource.GetStickersAsync();
@@ -71,8 +71,6 @@ namespace StickersApp.Pages
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             _navigationHelper.OnNavigatedFrom(e);
-
-            DataTransferManager.GetForCurrentView().DataRequested -= MainPage_DataRequested;
 
             base.OnNavigatedFrom(e);
         }
@@ -149,7 +147,14 @@ namespace StickersApp.Pages
             dataPackage.SetBitmap(streamRef);
 
             dataPackage.Properties.Title = sticker.Name;
-            dataPackage.Properties.Description = "Sticker";
+
+            dataPackage.Properties.ApplicationName = Package.Current.DisplayName;
+
+            dataPackage.Properties.PackageFamilyName = Package.Current.Id.FamilyName;
+
+            var resources = ResourceLoader.GetForCurrentView();
+
+            dataPackage.Properties.Description = resources.GetString("Sticker");
         }
 
         private void OnShare(object sender, RoutedEventArgs e)
@@ -163,6 +168,16 @@ namespace StickersApp.Pages
 
             if (sticker != null)
                 await UpdateDataPackageAsync(e.Data, sticker);
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            DataTransferManager.GetForCurrentView().DataRequested += MainPage_DataRequested;
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            DataTransferManager.GetForCurrentView().DataRequested -= MainPage_DataRequested;
         }
 
         #endregion

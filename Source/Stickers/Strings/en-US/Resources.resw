@@ -135,4 +135,8 @@
   <data name="ShareButton.Label" xml:space="preserve">
     <value>Share</value>
   </data>
+  <data name="Sticker" xml:space="preserve">
+    <value>Sticker</value>
+    <comment>Description of sticker shared via drag and drop, copy, and sharing.</comment>
+  </data>
 </root>
