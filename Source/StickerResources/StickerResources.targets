@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <StickerResources-Platform Condition="'$(Platform)' == 'Win32'">x86</StickerResources-Platform>
+    <StickerResources-Platform Condition="'$(Platform)' != 'Win32'">$(Platform)</StickerResources-Platform>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(TargetPlatformIdentifier)' == 'UAP'">
+    <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\StickerResources.winmd">
+      <Implementation>StickerResources.dll</Implementation>
+    </Reference>
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(StickerResources-Platform)\native\StickerResources.dll" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations" Version="2.1.1">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>

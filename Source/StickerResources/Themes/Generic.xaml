@@ -124,6 +124,13 @@
                                              FontSize="12"
                                              NavigateUri="ms-windows-store://assoc/?Tags=AppExtension-Universal.Stickers.1"
                                              Content="Download and install apps that have stickers."/>
+                            <TextBlock Foreground="Red" Grid.Row="1" Visibility="Collapsed" Margin="8" TextAlignment="Center" VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center"  x:Name="HostingErrorText" TextWrapping="Wrap" >
+                                <Run Text="StickerControl Hosting Error" FontWeight="Bold"/>
+                                <LineBreak/>
+                                <Run Text="Modify the application manifest to add an App Extension Host declaration with the Name "/>
+                                    <Run Text="Universal.Stickers.1" FontStyle="Italic"/><Run Text="."></Run>
+                            </TextBlock>
                         </Grid>
                     </Border>
                 </ControlTemplate>

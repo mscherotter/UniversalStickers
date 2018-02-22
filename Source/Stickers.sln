@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StickersApp", "Stickers\StickersApp.csproj", "{46EA1EF2-0C5F-4E00-BA28-9EECB4A8D7D2}"
 EndProject
@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StickerResources", "Sticker
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{55D98DA2-F42D-4B7B-95DB-683CB1EB4737}"
 	ProjectSection(SolutionItems) = preProject
+		StickerResources\StickerResources.nuspec = StickerResources\StickerResources.nuspec
+		StickerResources\StickerResources.targets = StickerResources\StickerResources.targets
 		Stickers.Nuget\stickers.nuspec = Stickers.Nuget\stickers.nuspec
 	EndProjectSection
 EndProject

@@ -25,6 +25,7 @@ namespace StickerResources
     [TemplatePart(Name = "StickerExtensionSource", Type = typeof(CollectionViewSource))]
     [TemplatePart(Name = "ProgressRing", Type = typeof(ProgressRing))]
     [TemplatePart(Name = "NoCollectionsText", Type = typeof(TextBlock))]
+    [TemplatePart(Name = "HostingErrorText", Type = typeof(TextBlock))]
     [TemplateVisualState(GroupName = "StatusStates", Name = "Default")]
     [TemplateVisualState(GroupName = "StatusStates", Name = "Busy")]
     [TemplateVisualState(GroupName = "StatusStates", Name = "NoCollections")]
@@ -39,7 +40,11 @@ namespace StickerResources
         private Selector _selector;
         private ComboBox _tagsComboBox;
         private CollectionViewSource _viewSource;
+        private TextBlock _hostingErrorText;
 
+        /// <summary>
+        /// Initializes a new instance of the StickersControl class.
+        /// </summary>
         public StickersControl()
         {
             DefaultStyleKey = typeof(StickersControl);
@@ -112,6 +117,8 @@ namespace StickerResources
                 _tagsComboBox.ItemsSource = _keywords;
                 _tagsComboBox.SelectionChanged += _tagsComboBox_SelectionChanged;
             }
+
+            _hostingErrorText = GetTemplateChild("HostingErrorText") as TextBlock;
         }
 
         private void _tagsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -150,14 +157,29 @@ namespace StickerResources
                 _catalog.PackageUpdated -= _catalog_PackageUpdated;
             }
 
-            _catalog = AppExtensionCatalog.Open(ContractName);
+            try
+            {
 
-            _catalog.PackageInstalled += _catalog_PackageInstalled;
-            _catalog.PackageStatusChanged += _catalog_PackageStatusChanged;
-            _catalog.PackageUninstalling += _catalog_PackageUninstalling;
-            _catalog.PackageUpdated += _catalog_PackageUpdated;
+                _catalog = AppExtensionCatalog.Open(ContractName);
 
-            await LoadStickersAsync();
+                _catalog.PackageInstalled += _catalog_PackageInstalled;
+                _catalog.PackageStatusChanged += _catalog_PackageStatusChanged;
+                _catalog.PackageUninstalling += _catalog_PackageUninstalling;
+                _catalog.PackageUpdated += _catalog_PackageUpdated;
+
+                await LoadStickersAsync();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                System.Diagnostics.Debug.WriteLine(
+                    $"StickerControl HOSTING ERROR:\nModify the application manifest to add an App Extension Host\ndeclaration with the Name '{ContractName}'.",
+                    "Error");
+
+                if (_hostingErrorText != null)
+                {
+                    _hostingErrorText.Visibility = Visibility.Visible;
+                }
+            }
         }
 
         private async Task LoadStickersAsync()
