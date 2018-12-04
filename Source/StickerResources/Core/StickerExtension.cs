@@ -59,8 +59,14 @@ namespace StickerResources.Core
             }
         }
 
+        /// <summary>
+        /// Gets or sets the license
+        /// </summary>
         public string License { get; set; }
 
+        /// <summary>
+        /// Gets or sets the license URL
+        /// </summary>
         public Uri LicenseUri { get; set; }
     }
 }

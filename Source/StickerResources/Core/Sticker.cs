@@ -11,17 +11,42 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace StickerResources.Core
 {
+    /// <summary>
+    /// A sticker
+    /// </summary>
     public sealed class Sticker
     {
+        /// <summary>
+        /// Gets the keywords
+        /// </summary>
         public IEnumerable<string> Keywords { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the sticker
+        /// </summary>
         public string Name { get; internal set; }
 
+        /// <summary>
+        /// Gets the file for the sticker
+        /// </summary>
         public StorageFile File { get; internal set; }
 
+        /// <summary>
+        /// Gets the thumbnail image for the sticker
+        /// </summary>
         public ImageSource Thumbnail { get; internal set; }
 
+        /// <summary>
+        /// Gets or sets the sticker extensions
+        /// </summary>
         public StickerExtension Extension { get; set; }
 
+        /// <summary>
+        /// Create a sticker based on a file
+        /// </summary>
+        /// <param name="file">the image file</param>
+        /// <param name="keywords">the keywords</param>
+        /// <returns>an async operation with the sticker</returns>
         public static IAsyncOperation<Sticker> CreateAsync(StorageFile file, IReadOnlyList<string> keywords)
         {
             return AsyncInfo.Run(async delegate(CancellationToken token)
@@ -32,6 +57,8 @@ namespace StickerResources.Core
                 };
 
                 var imageProperties = await file.Properties.GetImagePropertiesAsync();
+
+                if (token.IsCancellationRequested) return null;
 
                 var keywordList = new List<string>(from item in imageProperties.Keywords
                                                    select item.ToLower());
@@ -50,8 +77,6 @@ namespace StickerResources.Core
                 }
 
                 sticker.Keywords = keywordList;
-
-                if (token.IsCancellationRequested) return null;
 
                 sticker.Name = string.IsNullOrWhiteSpace(imageProperties.Title)
                     ? file.DisplayName

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using StickerResources.Core;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +15,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
-using StickerResources.Core;
 
 namespace StickerResources
 {
@@ -37,13 +38,13 @@ namespace StickerResources
         private readonly ObservableCollection<string> _keywords = new ObservableCollection<string>();
         private AppExtensionCatalog _catalog;
         private List<StickerExtension> _extensions = new List<StickerExtension>();
+        private TextBlock _hostingErrorText;
         private Selector _selector;
         private ComboBox _tagsComboBox;
         private CollectionViewSource _viewSource;
-        private TextBlock _hostingErrorText;
 
         /// <summary>
-        /// Initializes a new instance of the StickersControl class.
+        ///     Initializes a new instance of the StickersControl class.
         /// </summary>
         public StickersControl()
         {
@@ -52,41 +53,65 @@ namespace StickerResources
             Loaded += StickersControl_Loaded;
         }
 
+        /// <summary>
+        ///     Gets a value indicating whether the sticker control is available on this Windows version
+        /// </summary>
         public static bool IsAvailable => ApiInformation.IsTypePresent(
             "Windows.ApplicationModel.AppExtensions.AppExtensionCatalog");
 
+        /// <summary>
+        ///     Gets or sets the contract name
+        /// </summary>
         public string ContractName
         {
-            get => (string) GetValue(ContractNameProperty);
+            get => (string)GetValue(ContractNameProperty);
             set => SetValue(ContractNameProperty, value);
         }
 
+        /// <summary>
+        ///     Contract name dependency property
+        /// </summary>
         public static DependencyProperty ContractNameProperty { get; } = DependencyProperty.Register(
             "ContractName",
             typeof(string),
             typeof(StickersControl),
             new PropertyMetadata("Universal.Stickers.1", OnContractNameChanged));
 
+        /// <summary>
+        ///     the SelectedSticker dependency property
+        /// </summary>
         public static DependencyProperty SelectedStickerProperty { get; } =
             DependencyProperty.Register("SelectedSticker", typeof(Sticker), typeof(StickersControl),
                 new PropertyMetadata(null, OnSelectedStickerChanged));
 
+        /// <summary>
+        ///     Gets or sets the selector style
+        /// </summary>
         public Style SelectorStyle
         {
-            get => (Style) GetValue(SelectorStyleProperty);
+            get => (Style)GetValue(SelectorStyleProperty);
             set => SetValue(SelectorStyleProperty, value);
         }
 
+        /// <summary>
+        ///     The SelectorStyle dependency property
+        /// </summary>
         public static DependencyProperty SelectorStyleProperty { get; } = DependencyProperty.Register("SelectorStyle",
             typeof(Style), typeof(StickersControl), new PropertyMetadata(null));
 
 
+        /// <summary>
+        ///     Gets or sets the selected sticker
+        /// </summary>
         public Sticker SelectedSticker
         {
-            get => (Sticker) GetValue(SelectedStickerProperty);
+            get => (Sticker)GetValue(SelectedStickerProperty);
             set => SetValue(SelectedStickerProperty, value);
         }
 
+        /// <summary>
+        ///     Sticker selected event arguments
+        /// </summary>
         public event EventHandler<StickerSelectedEventArgs> StickerSelected;
 
         private async void StickersControl_Loaded(object sender, RoutedEventArgs e)
@@ -94,6 +119,9 @@ namespace StickerResources
             await UpdateStickersAsync();
         }
 
+        /// <summary>
+        ///     Apply templates
+        /// </summary>
         protected override void OnApplyTemplate()
         {
             if (_selector != null)
@@ -159,7 +187,6 @@ namespace StickerResources
 
             try
             {
-
                 _catalog = AppExtensionCatalog.Open(ContractName);
 
                 _catalog.PackageInstalled += _catalog_PackageInstalled;
@@ -171,14 +198,12 @@ namespace StickerResources
             }
             catch (UnauthorizedAccessException)
             {
-                System.Diagnostics.Debug.WriteLine(
+                Debug.WriteLine(
                     $"StickerControl HOSTING ERROR:\nModify the application manifest to add an App Extension Host\ndeclaration with the Name '{ContractName}'.",
                     "Error");
 
                 if (_hostingErrorText != null)
-                {
                     _hostingErrorText.Visibility = Visibility.Visible;
-                }
             }
         }
 
@@ -205,13 +230,13 @@ namespace StickerResources
         private static async Task<List<StickerExtension>> LoadExtensionsAsync(IReadOnlyList<AppExtension> allExtensions)
         {
             var extensions = (from extension in allExtensions
-                orderby extension.DisplayName
-                select new StickerExtension
-                {
-                    Name = extension.DisplayName,
-                    Description = extension.Description,
-                    Extension = extension
-                }).ToList();
+                              orderby extension.DisplayName
+                              select new StickerExtension
+                              {
+                                  Name = extension.DisplayName,
+                                  Description = extension.Description,
+                                  Extension = extension
+                              }).ToList();
 
             foreach (var extension in extensions)
             {
@@ -261,13 +286,11 @@ namespace StickerResources
                     keywordsFileItem = await folder.TryGetItemAsync(filename);
 
                     if (keywordsFileItem != null)
-                    {
                         break;
-                    }
                 }
 
                 var keywords = new Dictionary<string, string[]>();
-                
+
                 if (keywordsFileItem != null && keywordsFileItem.IsOfType(StorageItemTypes.File))
                 {
                     var lines = await FileIO.ReadLinesAsync(keywordsFileItem as StorageFile);
@@ -277,9 +300,7 @@ namespace StickerResources
                         var words = line.Split(',');
 
                         if (words.Length > 1)
-                        {
                             keywords[words[0].Trim()] = words.Skip(1).ToArray();
-                        }
                     }
                 }
 
@@ -315,9 +336,9 @@ namespace StickerResources
         private void UpdateTags()
         {
             var keywords = from extension in _extensions
-                from sticker in extension.Stickers
-                from keyword in sticker.Keywords
-                select keyword.ToLower();
+                           from sticker in extension.Stickers
+                           from keyword in sticker.Keywords
+                           select keyword.ToLower();
 
             var list = keywords.Distinct().ToList();
 

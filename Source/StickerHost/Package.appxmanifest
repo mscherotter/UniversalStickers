@@ -23,7 +23,7 @@
       <Extensions>
         <uap3:Extension Category="windows.appExtensionHost">
           <uap3:AppExtensionHost>
-            <uap3:Name>Universal.Stickers.12</uap3:Name>
+            <uap3:Name>Universal.Stickers.1</uap3:Name>
           </uap3:AppExtensionHost>
         </uap3:Extension>
       </Extensions>

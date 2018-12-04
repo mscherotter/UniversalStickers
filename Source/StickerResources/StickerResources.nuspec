@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>UniversalStickers</id>
-    <version>1.0.0</version>
+    <version>1.0.12</version>
     <title>Universal Stickers</title>
     <authors>Michael S. Scherotter</authors>
     <owners>Michael S. Scherotter</owners>
@@ -10,34 +10,51 @@
     <projectUrl>https://github.com/mscherotter/UniversalStickers</projectUrl>
     <iconUrl>https://github.com/mscherotter/UniversalStickers/raw/master/Assets/Logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Add sticker picking and insertion to a UWP app.</description>
-    <releaseNotes>Initial release.</releaseNotes>
+    <description>Add sticker picking and insertion to a UWP Xaml app.</description>
+    <releaseNotes>Fixed problems in build configurations.</releaseNotes>
     <copyright>Copyright 2018 Michael S. Scherotter</copyright>
     <tags>UWP Stickers</tags>
     <dependencies>
       <group targetFramework="uap10.0">
-        <dependency id="Microsoft.Toolkit.Uwp.UI.Animations" version="2.1.1" />
+        <dependency id="Microsoft.Toolkit.Uwp.UI.Animations" version="5.0.0" />
       </group>
     </dependencies>
   </metadata>
   <files>
     <!-- WinMd and IntelliSense files -->
-    <file src="bin\x86\Release\StickerResources.winmd" target="lib\uap10.0"/>
+    <file src="bin\Debug\StickerResources.winmd" target="lib\uap10.0"/>
     <file src="bin\x86\Debug\StickerResources.xml" target="lib\uap10.0"/>
     
     <file src="Themes\Generic.xaml" target="lib\uap10.0\Themes"/>
     
-    <file src="bin\ARM\Release\StickerResources.pri" target="runtimes\win10-arm\native"/>
-    <file src="bin\ARM\Release\StickerResources\StickerResources.xr.xml" target="runtimes\win10-arm\native\StickerResources"/>
-    <file src="Themes\Generic.xaml" target="runtimes\win10-arm\native\StickerResources\Themes"/>
+    <file src="bin\ARM\Release\StickerResources.pri"                     target="runtimes\win10-arm\lib\uap10.0"/>
+    <file src="bin\ARM\Release\StickerResources.winmd"                   target="runtimes\win10-arm\lib\uap10.0"/>
+    <file src="bin\ARM\Release\StickerResources\StickerResources.xr.xml" target="runtimes\win10-arm\lib\uap10.0\StickerResources"/>
+    <file src="Themes\Generic.xaml"                                      target="runtimes\win10-arm\lib\uap10.0\StickerResources\Themes"/>
+    <file src="bin\x86\Debug\Themes\Generic.xbf"                         target="runtimes\win10-arm\lib\uap10.0\StickerResources\Themes"/>
 
-    <file src="bin\x64\Release\StickerResources.pri" target="runtimes\win10-x64\native"/>
-    <file src="bin\x64\Release\StickerResources\StickerResources.xr.xml" target="runtimes\win10-x64\native\StickerResources"/>
-    <file src="Themes\Generic.xaml" target="runtimes\win10-x64\native\StickerResources\Themes"/>
+    <file src="bin\x64\Release\StickerResources.pri"                     target="runtimes\win10-x64\lib\uap10.0"/>
+    <file src="bin\x64\Release\StickerResources.winmd"                   target="runtimes\win10-x64\lib\uap10.0"/>
+    <file src="bin\x64\Release\StickerResources\StickerResources.xr.xml" target="runtimes\win10-x64\lib\uap10.0\StickerResources"/>
+    <file src="Themes\Generic.xaml"                                      target="runtimes\win10-x64\lib\uap10.0\StickerResources\Themes"/>
+    <file src="bin\x86\Debug\Themes\Generic.xbf"                         target="runtimes\win10-x64\lib\uap10.0\StickerResources\Themes"/>
 
-    <file src="bin\x86\Release\StickerResources.pri" target="runtimes\win10-x86\native"/>
-    <file src="bin\x86\Release\StickerResources\StickerResources.xr.xml" target="runtimes\win10-x86\native\StickerResources"/>
-    <file src="Themes\Generic.xaml" target="runtimes\win10-x86\native\StickerResources\Themes"/>
+    <file src="bin\x86\Release\StickerResources.pri"                     target="runtimes\win10-x86\lib\uap10.0"/>
+    <file src="bin\x86\Release\StickerResources.winmd"                   target="runtimes\win10-x86\lib\uap10.0"/>
+    <file src="bin\x86\Release\StickerResources\StickerResources.xr.xml" target="runtimes\win10-x86\lib\uap10.0\StickerResources"/>
+    <file src="Themes\Generic.xaml"                                      target="runtimes\win10-x86\lib\uap10.0\StickerResources\Themes"/>
+    <file src="bin\x86\Debug\Themes\Generic.xbf"                         target="runtimes\win10-x86\lib\uap10.0\StickerResources\Themes"/>
+
+    <file src="bin\ARM64\Release\StickerResources.pri"                   target="runtimes\win10-arm64\lib\uap10.0"/>
+    <file src="bin\ARM64\Release\StickerResources.winmd"                 target="runtimes\win10-arm64\lib\uap10.0"/>
+    <file src="bin\ARM64\Release\StickerResources\StickerResources.xr.xml" target="runtimes\win10-arm64\lib\uap10.0\StickerResources"/>
+    <file src="Themes\Generic.xaml"                                      target="runtimes\win10-arm64\lib\uap10.0\StickerResources\Themes"/>
+    <file src="bin\x86\Debug\Themes\Generic.xbf"                         target="runtimes\win10-arm64\lib\uap10.0\StickerResources\Themes"/>
+
+  <!--<file src="bin\x86\Release\StickerResources\Themes\Generic.xaml"     target="ref\uap10.0\StickerResources\Themes"/>
+    <file src="bin\x86\Debug\Themes\Generic.xbf"                         target="ref\uap10.0\StickerResources\Themes"/>
+    <file src="bin\x86\Release\StickerResources\StickerResources.xr.xml" target="ref\uap10.0\StickerResources"/>
+    <file src="bin\x86\Release\StickerResources.pri"                     target="ref\uap10.0"/>-->
 
     <file src="StickerResources.targets" target="build\native"/>
   </files>
